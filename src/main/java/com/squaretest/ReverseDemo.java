@@ -3,6 +3,7 @@ package com.squaretest;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,12 +11,16 @@ import java.io.FileWriter;
 import java.util.Objects;
 
 /**
+ * 逆向Demo
+ *
  * @author brady
+ * @date 2023/07/20
  */
-public class Main {
+@Slf4j
+public class ReverseDemo {
 
     public static void main(String[] args) throws Exception {
-        String classPath = Objects.requireNonNull(Main.class.getResource("/")).getPath();
+        String classPath = Objects.requireNonNull(ReverseDemo.class.getResource("/")).getPath();
         File file = new File(classPath);
         String[] files = file.list((dir, name) -> name.endsWith(".jar") && name.startsWith("TestStarter"));
         assert files != null;
@@ -39,13 +44,6 @@ public class Main {
         String osName = System.getProperty("os.name");
 
         // 设置试用时间为固定值
-        // System.out.println("jar -uvf " + classPath + testStarter + " com/squaretest/c/f.class");
-        // String[] cmd = new String[]{"jar", "-uvf", classPath + testStarter, "com/squaretest/c/f.class"};
-        // Process process = Runtime.getRuntime().exec(cmd);
-        // process.waitFor();
-        // Runtime.getRuntime().exec("jar -uvf " + classPath + testStarter + " com/squaretest/c/i.class");
-        // Runtime.getRuntime().exec("jar -uvf " + classPath + testStarter + " com/squaretest/c/q.class");
-        // 上面的代码没解决问题，改用下面的代码；然后手工执行相关脚本
         StringBuilder sb = new StringBuilder();
         String scriptName;
         if (osName.startsWith("Window")) {
